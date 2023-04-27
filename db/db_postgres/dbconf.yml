@@ -1,0 +1,5 @@
+production:
+    driver: postgres
+    open: root:@(:5432)/gophish?sslmode=disable
+    dialect: postgres
+    import: gitee.com/opengauss/openGauss-connector-go-pq

@@ -4,8 +4,9 @@ go 1.13
 
 require (
 	bitbucket.org/liamstask/goose v0.0.0-20150115234039-8488cc47d90c
+	gitee.com/opengauss/openGauss-connector-go-pq v1.0.4
 	github.com/NYTimes/gziphandler v1.1.1
-	github.com/PuerkitoBio/goquery v1.5.0
+	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/emersion/go-imap v1.0.4
@@ -26,9 +27,8 @@ require (
 	github.com/oschwald/maxminddb-golang v1.6.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/ziutek/mymysql v1.5.4 // indirect
-	golang.org/x/crypto v0.0.0-20200128174031-69ecbb4d6d5d
-	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab // indirect
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
-	gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405
+	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
 )

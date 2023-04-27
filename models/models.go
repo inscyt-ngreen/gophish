@@ -16,6 +16,7 @@ import (
 	"github.com/gophish/gophish/auth"
 	"github.com/gophish/gophish/config"
 
+	postgres "gitee.com/opengauss/openGauss-connector-go-pq"
 	log "github.com/gophish/gophish/logger"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3" // Blank import needed to import sqlite3
@@ -89,6 +90,10 @@ func chooseDBDriver(name, openStr string) goose.DBDriver {
 		d.Import = "github.com/go-sql-driver/mysql"
 		d.Dialect = &goose.MySqlDialect{}
 
+	case "postgres":
+		d.Import = "gitee.com/opengauss/openGauss-connector-go-pq"
+		d.Dialect = &goose.PostgresDialect{}
+
 	// Default database is sqlite3
 	default:
 		d.Import = "github.com/mattn/go-sqlite3"
@@ -161,6 +166,20 @@ func Setup(c *config.Config) error {
 				return err
 			}
 			mysql.RegisterTLSConfig("ssl_ca", &tls.Config{
+				RootCAs: rootCertPool,
+			})
+		case "postgres":
+			rootCertPool := x509.NewCertPool()
+			pem, err := ioutil.ReadFile(conf.DBSSLCaPath)
+			if err != nil {
+				log.Error(err)
+				return err
+			}
+			if ok := rootCertPool.AppendCertsFromPEM(pem); !ok {
+				log.Error("Failed to append PEM.")
+				return err
+			}
+			postgres.RegisterTLSConfig("ssl_ca", &tls.Config{
 				RootCAs: rootCertPool,
 			})
 			// Default database is sqlite3, which supports no tls, as connection

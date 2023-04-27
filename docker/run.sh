@@ -73,6 +73,15 @@ if [ -n "${DB_FILE_PATH+set}" ] ; then
         cat config.json.tmp > config.json
 fi
 
+if [ -n "${DB_TYPE:+set}" ] ; then
+    case "$DB_TYPE" in sqlite3|mysql|postgres);;
+        *) echo "Invalid DB_TYPE: $DB_TYPE" >&2; exit 1; esac;
+    jq -r \
+        --arg DB_TYPE "${DB_TYPE}" \
+        '.db_name = $DB_TYPE' config.json > config.json.tmp && \
+        cat config.json.tmp > config.json
+fi
+
 echo "Runtime configuration: "
 cat config.json
 
